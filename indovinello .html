@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indovinello Olimpico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #ff4500;
+            font-size: 36px;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #0072ff;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            color: white;
+            background-color: #ff4500;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e33d00;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #loading {
+            display: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        #final-message {
+            display: none;
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            animation: color-change 5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        @keyframes color-change {
+            0% {
+                color: #ff4500;
+            }
+            25% {
+                color: #00ff7f;
+            }
+            50% {
+                color: #0072ff;
+            }
+            75% {
+                color: #ff1493;
+            }
+            100% {
+                color: #ff4500;
+            }
+        }
+        body.final {
+            background: url('https://source.unsplash.com/1920x1080/?sports,stadium') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="quiz-container">
+        <h1>Indovinello Olimpico</h1>
+        <p>Non mi vedrai mai fermo, eppure non ho gambe,
+la mia danza è invisibile, il mio passo incessante.
+Nel buio risplendo, di luce vestito,
+e al soffio del vento, il mio canto è infinito.
+
+Da mano a mano viaggio, mai solo, mai spento,
+sono il simbolo eterno di impegno e talento.
+Se mi lasci cadere, si spezza il destino,
+ma porto speranza, ovunque il mio cammino.<br>
+        <strong>Chi sono?</strong></p>
+
+        <input type="text" id="answer" placeholder="Scrivi la tua risposta qui...">
+        <button onclick="checkAnswer()">Invia</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <div id="loading">Caricamento in corso...</div>
+    <div id="final-message">RISPOSTA ESATTA, BUONE OLIMPIADI DI ARCHI 2024!</div>
+
+    <script>
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            const correctAnswer = "la fiamma olimpica";
+
+            if (userAnswer === correctAnswer) {
+                // Nascondi il contenuto attuale e mostra il caricamento
+                document.getElementById("quiz-container").style.display = "none";
+                document.getElementById("loading").style.display = "block";
+
+                // Dopo 2 secondi mostra il messaggio finale
+                setTimeout(() => {
+                    document.body.classList.add("final");
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("final-message").style.display = "block";
+                }, 2000);
+            } else {
+                const resultDiv = document.getElementById("result");
+                resultDiv.style.color = "red";
+                resultDiv.textContent = "Spiacente, risposta sbagliata. Riprova!";
+            }
+        }
+    </script>
+</body>
+</html>
